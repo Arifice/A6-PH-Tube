@@ -11,7 +11,7 @@ const load=async()=>{
        
        const tab=document.createElement("div");
        tab.innerHTML=
-        `  <a onclick="callCategory(${category.category_id})" class=" tab text-green-600   px-1  py-1 lg:px-3 m-1 lg:m-3 text-2xl lg:text-4xl rounded-md font-semibold">${category.category}</a>
+        `  <a onclick="callCategory(${category.category_id})" class=" tabs tabs-boxed px-1  py-1 lg:px-3 m-1 lg:m-3 text-2xl lg:text-4xl rounded-md font-semibold">${category.category}</a>
         `  
         tabContainer.appendChild(tab);      
     })  
@@ -22,7 +22,9 @@ const callCategory=async(categoryId)=>{
     const data=await response.json();
     console.log(data);
     const itemField=document.getElementById('item-container'); 
-    const sowModalField=document.getElementById('show-modal');
+    const showDrawingField=document.getElementById('show-drawing');
+    const showBlogField=document.getElementById('show-blog');
+    showBlogField.textContent='';
     let length=data.data.length;
      
 
@@ -30,7 +32,7 @@ const callCategory=async(categoryId)=>{
     console.log(data.data);
 
     itemField.textContent='';
-    sowModalField.textContent='';
+    showDrawingField.textContent='';
     if(length===0){
         
         const div=document.createElement('div');
@@ -46,7 +48,7 @@ const callCategory=async(categoryId)=>{
                 </div>
             </div>    
         `
-        sowModalField.appendChild(div);  
+        showDrawingField.appendChild(div);  
         
     
      }  
@@ -109,27 +111,75 @@ const nav=()=>{
    `
         <div class="navbar bg-base-100">
             <div class="navbar-start">
-                <img src="./Logo.png" alt="">                  
+                <img class="lg:h-16 md:h-12" src="./Logo.png" alt="">                  
             </div>
             <div class="navbar-center hidden md:flex lg:flex">
-                <button onclick="sortByView()" class="btn rounded-md text-2xl bg-[#25252533]">Sort by view</button>
+                <button onclick="sortByView()" class="lg:py-4 md:px-4 md:py-2 md:text-3xl lg:px-8 lg:text-5xl font-semibold rounded-lg bg-[#25252533]">Sort by view</button>
             </div>
             <div class="navbar-end">
                 <div class="hidden md:flex lg:flex">
-                    <a class="btn text-white rounded-md text-2xl  bg-[#FF1F3D]">Blog</a>
+                    <button onclick="blog()" class=" lg:py-4 lg:px-8 lg:text-5xl md:px-4 md:py-2 md:text-3xl rounded-lg font-semibold text-white  bg-[#FF1F3D]">Blog</button>
                 </div>
                 <div class="dropdown dropdown-end md:hidden lg:hidden">
                     <label tabindex="0" class="btn btn-ghost lg:hidden">
-                        <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h8m-8 6h16" /></svg>
+                        <svg xmlns="http://www.w3.org/2000/svg" class="h-10 w-10" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h8m-8 6h16" /></svg>
                     </label>
                     <ul tabindex="0" class="menu menu-sm dropdown-content z-[1] shadow  bg-secondary text-white rounded-lg w-40">
                         <button onclick="sortByView()" class="text-2xl font-bold">Sort by view</button>
-                        <button class="text-2xl font-bold">Blog</button>
+                        <button onclick="blog()" class="text-2xl font-bold">Blog</button>
                     </ul>
                 </div>
             </div>
         </div>
    `
+}
+const  blog=()=>{
+    const showBlogField=document.getElementById('show-blog');
+    const itemContainer=document.getElementById('item-container');
+    const showDrawing=document.getElementById('show-drawing');
+    itemContainer.textContent='';
+    showDrawing.textContent='';
+    console.log('blog is clocked')
+    const div=document.createElement('div');
+    showBlogField.textContent='';
+    div.classList='bg-gray-100  lg:p-24 p-4'
+    div.innerHTML=
+    `
+        <h1 class="text-3xl lg:text-6xl py-8 text-red-600 text-center font-bold">Blog Question and Answer</h1>
+        <h1 class=" text-2xl lg:text-4xl my-2 font-semibold">1. Discuss the scope of var, let, and const.</h1>
+        <ul class="lg:text-2xl my-1 font-semibold list-disc ml-8 lg:ml-16">
+            <li>var and let create variables that can be reassigned another value.</li>
+            <li>const creates "constant" variables that cannot be reassigned another value.</li>
+            <li>The scope of var is function & global, whereas the scope of let and const is only block </li>
+            <li>Developers shouldn't use var anymore. They should use let or const instead.</li>
+            
+        </ul>
+        
+        <h1 class="text-2xl lg:text-4xl my-2 font-semibold">2. Tell us the use cases of null and undefined.</h1>
+        <ul class="lg:text-2xl my-1 font-semibold list-disc ml-8 lg:ml-16">
+            <li>Null is basically an assignment value. The variable which has been assigned as null contains no value and is empty. </li>
+            <li>Undefined is when we declare a variable but do not assign a value to it, the variable becomes undefined.</li>
+            
+            
+        </ul>
+        <h1 class="text-2xl lg:text-4xl my-2 font-semibold">3. What do you mean by REST API?</h1>
+        <ul class="lg:text-2xl my-1 font-semibold list-disc ml-8 lg:ml-16">
+            <li>API stands for Apllication Programming Interface </li>
+            <li>An API acts like a link that allows two application to talk each other </li>
+            <li>API is the part of the server that recieves requests and sends response </li>
+            <li>Rest API has four methodes
+                <ul class=" ml-8 lg:ml-16 list-disc">
+                    <li>GET</li>
+                    <li>POST</li>
+                    <li>PUT/PATCH</li>
+                    <li>DELETE</li>
+                </ul>
+            </li>
+            
+        </ul>
+    
+    `
+    showBlogField.appendChild(div);
 }
 
 
