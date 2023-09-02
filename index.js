@@ -148,7 +148,7 @@ const sortByView=async()=>{
 const sort=(data)=>{
      //   console.log(data);
      data.sort(
-        (p1,p2)=>(p1.others.views < p2.others.views)? 1 : (p1.others.views > p2.others.views) ? -1 : 0
+        (p1,p2)=>(parseFloat(p1.others.views) < parseFloat(p2.others.views))? 1 : (parseFloat(p1.others.views) > parseFloat(p2.others.views)) ? -1 : 0
     );
     console.log(data);
     dispaly(data);    
